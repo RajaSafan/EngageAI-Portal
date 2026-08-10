@@ -1,8 +1,9 @@
 from pydantic import BaseModel, EmailStr
+import uuid
 
 
 class EmployeeOut(BaseModel):
-    user_id: int
+    user_id: uuid.UUID
     first_name: str
     last_name: str
     email: EmailStr

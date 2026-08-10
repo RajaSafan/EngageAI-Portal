@@ -44,6 +44,7 @@ from datetime import (
     timezone,
 )
 
+from uuid import UUID
 from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
@@ -232,7 +233,7 @@ def create_representative(
 
 
 
-def get_representatives(db: Session, organization_id: int) -> list[Representative]:
+def get_representatives(db: Session, organization_id: UUID) -> list[Representative]:
     statement = (
         select(Representative)
         .where(Representative.organization_id == organization_id)
@@ -246,7 +247,7 @@ def get_representatives(db: Session, organization_id: int) -> list[Representativ
 
 def get_representative(
     db: Session,
-    representative_id: int,
+    representative_id: UUID,
 ) -> Representative:
 
 
@@ -281,7 +282,7 @@ def get_representative(
 
 def delete_representative(
     db: Session,
-    representative_id: int,
+    representative_id: UUID,
 ) -> None:
 
 

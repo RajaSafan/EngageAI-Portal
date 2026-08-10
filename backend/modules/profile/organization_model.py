@@ -1,11 +1,16 @@
 """
 backend/modules/profile/organization_model.py
 
-organization_id ab sequential integer hai (1, 2, 3...) — UUID nahi.
+REPLACE the existing file with this. Changes:
+- onboarding_completed column add hua
+- business_type, website, business_email, business_phone, country ab nullable
+  hain (signup ke waqt nahi bharte, onboarding wizard mein complete hote hain)
 """
 
+import uuid
 import enum
-from sqlalchemy import Column, Integer, String, Text, DateTime, Enum, Boolean
+from sqlalchemy import Column, String, Text, DateTime, Enum, Boolean
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 
 from core.database import Base
@@ -19,7 +24,7 @@ class OrganizationStatus(str, enum.Enum):
 class Organization(Base):
     __tablename__ = "organizations"
 
-    organization_id = Column(Integer, primary_key=True, autoincrement=True)
+    organization_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     organization_name = Column(String(150), nullable=False)
     business_type = Column(String(100), nullable=True)
     website = Column(String(255), nullable=True)

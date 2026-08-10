@@ -32,45 +32,12 @@
 
 
 
-# """
-# backend/modules/representatives/router.py
-# """
-
-# from fastapi import APIRouter, Depends
-# from sqlalchemy.orm import Session
-# from typing import List
-
-# from core.database import get_db
-# from modules.auth.service import get_current_user
-# from modules.representatives import schemas, service
-# from modules.profile.user_model import User
-
-# router = APIRouter()
-
-
-# @router.post("/", response_model=schemas.RepresentativeOut)
-# def add_representative(
-#     payload: schemas.RepresentativeCreate,
-#     current_user: User = Depends(get_current_user),
-#     db: Session = Depends(get_db),
-# ):
-#     return service.create_representative(db, current_user.organization_id, payload)
-
-
-# @router.get("/", response_model=List[schemas.RepresentativeOut])
-# def list_representatives(
-#     current_user: User = Depends(get_current_user),
-#     db: Session = Depends(get_db),
-# ):
-#     return service.get_organization_representatives(db, current_user.organization_id)
-
-
-
 
 
 from datetime import datetime, timezone
 from modules.auth.service import get_current_user
 from modules.profile.user_model import User
+from uuid import UUID
 
 
 from fastapi import (
@@ -347,7 +314,7 @@ def open_invitation(
     "/{representative_id}/google/connect",
 )
 def connect_google_calendar(
-    representative_id: int,
+    representative_id: UUID,
     db: Session = Depends(get_db),
 ):
 
@@ -405,7 +372,7 @@ def google_callback(
 
     try:
 
-        representative_id = int(
+        representative_id = UUID(
             state
         )
 
@@ -601,7 +568,7 @@ def google_callback(
     "/{representative_id}/calendar/check",
 )
 def check_calendar_status(
-    representative_id: int,
+    representative_id: UUID,
     db: Session = Depends(get_db),
 ):
 
@@ -711,7 +678,7 @@ def check_calendar_status(
 
 @router.get("/{representative_id}", response_model=RepresentativeResponse)
 def retrieve_representative(
-    representative_id: int,
+    representative_id: UUID,
     current_user: User = Depends(get_current_user),   # ADD
     db: Session = Depends(get_db),
 ):
@@ -733,7 +700,7 @@ def retrieve_representative(
 
 @router.delete("/{representative_id}", status_code=204)
 def remove_representative(
-    representative_id: int,
+    representative_id: UUID,
     current_user: User = Depends(get_current_user),   # ADD
     db: Session = Depends(get_db),
 ):

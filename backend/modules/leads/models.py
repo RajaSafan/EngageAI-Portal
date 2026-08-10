@@ -1,11 +1,12 @@
 """
 backend/modules/leads/models.py
 
-leads table ka SQLAlchemy model. id aur organization_id ab sequential
-integer hain (UUID nahi).
+leads table ka SQLAlchemy model.
 """
 
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+import uuid
+from sqlalchemy import Column, String, DateTime, ForeignKey
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 
 from core.database import Base
@@ -14,9 +15,9 @@ from core.database import Base
 class Lead(Base):
     __tablename__ = "leads"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     organization_id = Column(
-        Integer,
+        UUID(as_uuid=True),
         ForeignKey("organizations.organization_id"),
         nullable=False,
     )
