@@ -6,11 +6,10 @@ REPLACE the existing file. OrganizationOut mein onboarding_completed add hua.
 
 from pydantic import BaseModel, EmailStr
 from typing import Optional
-import uuid
 
 
 class OrganizationOut(BaseModel):
-    organization_id: uuid.UUID
+    organization_id: int
     organization_name: str
     business_type: Optional[str] = None
     website: Optional[str] = None
@@ -40,7 +39,7 @@ class OrganizationUpdate(BaseModel):
 
 
 class UserProfileOut(BaseModel):
-    user_id: uuid.UUID
+    user_id: int
     first_name: str
     last_name: str
     email: EmailStr

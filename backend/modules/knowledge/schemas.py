@@ -1,11 +1,10 @@
 from pydantic import BaseModel
 from typing import Optional
-import uuid
 
 
 class KnowledgeBaseOut(BaseModel):
-    knowledge_base_id: uuid.UUID
-    organization_id: uuid.UUID
+    knowledge_base_id: int
+    organization_id: int
     source_type: str
     source_path: str
     processing_status: str

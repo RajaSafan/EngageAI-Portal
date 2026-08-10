@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, UploadFile
-from uuid import UUID
 
 from modules.knowledge.models import (
     KnowledgeBase,
@@ -141,10 +140,18 @@ def delete_knowledge_source(
     organization_id
 ):
 
+    try:
+        kb_id = int(knowledge_base_id)
+    except (TypeError, ValueError):
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid knowledge source ID."
+        )
+
     kb = (
         db.query(KnowledgeBase)
         .filter(
-            KnowledgeBase.knowledge_base_id == UUID(knowledge_base_id),
+            KnowledgeBase.knowledge_base_id == kb_id,
             KnowledgeBase.organization_id == organization_id
         )
         .first()

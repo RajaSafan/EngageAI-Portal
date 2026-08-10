@@ -31,7 +31,7 @@ def list_employees(
 
 @router.patch("/users/{user_id}/status", response_model=schemas.EmployeeOut)
 def toggle_status(
-    user_id: str,
+    user_id: int,
     payload: schemas.StatusUpdateRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),

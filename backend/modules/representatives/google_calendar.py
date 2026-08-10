@@ -1,6 +1,3 @@
-from uuid import UUID
-
-
 from fastapi import HTTPException
 
 
@@ -102,7 +99,7 @@ def create_google_flow(
 
 def get_representative_or_404(
     db,
-    representative_id: UUID,
+    representative_id: int,
 ):
 
     from modules.representatives.models import Representative

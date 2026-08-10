@@ -1,14 +1,12 @@
 """
 backend/modules/profile/user_model.py
 
-users table ka SQLAlchemy model. role aur status dono ENUM hain
-(Database Schema doc ke final decision ke mutabiq — role hi department hai).
+users table ka SQLAlchemy model. user_id aur organization_id ab sequential
+integer hain (UUID nahi). role aur status dono ENUM hain.
 """
 
-import uuid
 import enum
-from sqlalchemy import Column, String, DateTime, Enum, ForeignKey
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, Integer, String, DateTime, Enum, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
@@ -30,8 +28,8 @@ class UserStatus(str, enum.Enum):
 class User(Base):
     __tablename__ = "users"
 
-    user_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    organization_id = Column(UUID(as_uuid=True), ForeignKey("organizations.organization_id"), nullable=False)
+    user_id = Column(Integer, primary_key=True, autoincrement=True)
+    organization_id = Column(Integer, ForeignKey("organizations.organization_id"), nullable=False)
     first_name = Column(String(100), nullable=False)
     last_name = Column(String(100), nullable=False)
     email = Column(String(255), unique=True, nullable=False)

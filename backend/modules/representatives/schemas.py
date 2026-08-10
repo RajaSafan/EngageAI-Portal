@@ -30,8 +30,6 @@
 
 from datetime import datetime
 
-from uuid import UUID
-
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -39,17 +37,12 @@ from pydantic import (
 )
 
 
-
-
-
 class RepresentativeCreate(BaseModel):
-    organization_id: UUID | None = None   # optional — router isko current_user se hamesha overwrite karta hai
+    organization_id: int | None = None   # optional — router isko current_user se hamesha overwrite karta hai
     representative_name: str
     service: str
     service_description: str
     company_email: EmailStr
-
-
 
 
 class RepresentativeResponse(BaseModel):
@@ -59,9 +52,9 @@ class RepresentativeResponse(BaseModel):
     )
 
 
-    representative_id: UUID
+    representative_id: int
 
-    organization_id: UUID
+    organization_id: int
 
     representative_name: str
 

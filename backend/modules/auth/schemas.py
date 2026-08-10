@@ -7,7 +7,6 @@ REPLACE the existing file. RegisterRequest ab sirf organization_name
 
 from pydantic import BaseModel, EmailStr
 from typing import Optional
-import uuid
 
 
 class RegisterRequest(BaseModel):
@@ -22,8 +21,8 @@ class RegisterRequest(BaseModel):
 
 
 class UserOut(BaseModel):
-    user_id: uuid.UUID
-    organization_id: uuid.UUID
+    user_id: int
+    organization_id: int
     first_name: str
     last_name: str
     email: EmailStr

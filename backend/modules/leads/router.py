@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List
-import uuid
 
 from core.database import get_db
 from modules.auth.service import get_current_user
@@ -21,7 +20,7 @@ def list_leads(
 
 @router.patch("/{lead_id}/status", response_model=schemas.LeadOut)
 def change_lead_status(
-    lead_id: uuid.UUID,
+    lead_id: int,
     payload: schemas.LeadStatusUpdate,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),

@@ -1,10 +1,9 @@
 from pydantic import BaseModel
 from typing import Optional
-import uuid
 
 class LeadOut(BaseModel):
-    id: uuid.UUID
-    organization_id: uuid.UUID
+    id: int
+    organization_id: int
     visitor_name: Optional[str] = None
     visitor_email: Optional[str] = None
     status: str
