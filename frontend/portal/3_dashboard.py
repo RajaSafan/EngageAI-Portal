@@ -10,6 +10,15 @@ inject_custom_css()
 
 require_login()
 
+# Dashboard access is only allowed after onboarding is completed.
+# This protects the page even if a user opens the dashboard URL directly.
+if not st.session_state.get("onboarding_completed", False):
+    st.warning("🔒 Please complete your onboarding before accessing the dashboard.")
+    st.info("Complete the required setup steps to unlock your organization dashboard.")
+    if st.button("Complete Onboarding →", type="primary"):
+        st.switch_page("portal/0_onboarding.py")
+    st.stop()
+
 render_account_sidebar()
 
 page_header("📊", "Dashboard", f"Welcome back, {st.session_state.user.get('first_name', '')}")
